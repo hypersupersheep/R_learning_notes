@@ -1,50 +1,11 @@
-## STAT0023 Week 1 — Course Overview & R Revision
+# R Revision
 
 ---
-## Links
-[[Data Structure_R的数据结构|Data Structures in R]]
-[[待修改 - Statistical Tests（统计检验）|Statistical Tests]]
-[[ggplot2 使用指南|ggplot2 Guide]]
-[[Linear Regression的统计知识|Linear Regression Notes]]
+## 1. R Revision
 
-## 1. Course Overview
+### 1.1 Essential R Foundations
 
-### 1.1 Two Main Software Tools
-
-This course uses two `statistical packages`:
-
-| Feature | **R** | **SAS** (Statistical Analysis System) |
-| --- | --- | --- |
-| License | ==Free== and open-source | **Commercial** (paid) |
-| History | Modernized from S language | Started in the 1970s |
-| Ecosystem | 20,000+ packages on CRAN | Industry standard (e.g., pharma, insurance) |
-| Interface | Command line + RStudio | Command line + point-and-click interface |
-| Course weight | ==**65%**== | **35%** |
-
-> [!tip] Why more R?
-> Programming concepts are generally easier to demonstrate and learn in R than in SAS.
-
-### 1.2 Why Command-Line Instead of Point-and-Click?
-
-The course emphasizes writing commands/scripts rather than only using GUI tools.
-
-1. **Reproducibility**: commands are saved in script files and can be rerun.
-2. **Documentation**: scripts can include comments explaining each step.
-3. **Debugging**: errors can be located precisely.
-4. **Efficiency**: repeated point-and-click operations are tedious and error-prone.
-
-> [!important] Course goal
-> The goal is not to memorize every command, but to build **confidence to find appropriate new commands for yourself**.
-
----
-
-## 2. R Revision
-
-### 2.1 Essential R Foundations
-
-#### 2.1.1 Data Structures
-
-[[Data Structure_R的数据结构|Data Structures in R]]
+#### 1.1.1 Data Structures
 
 | Structure | Description | Example |
 | --- | --- | --- |
@@ -56,7 +17,7 @@ The course emphasizes writing commands/scripts rather than only using GUI tools.
 
 Basic variable types include `numeric`, `integer`, `character`, `logical`, and `factor`.
 
-#### 2.1.2 Assignment Operator
+#### 1.1.2 Assignment Operator
 
 ```r
 # Assign an expression result to an object
@@ -67,7 +28,7 @@ species.data <- read.table("galapagos.dat", header=TRUE)
 > [!note] `<-` vs `=`
 > In this course, `<-` is the recommended assignment operator.
 
-#### 2.1.3 Subsetting — ==Key Skill==
+#### 1.1.3 Subsetting — ==Key Skill==
 
 Use square brackets `[]` to extract subsets.
 
@@ -87,7 +48,7 @@ species.data[, 3]       # column 3
 species.data[1:5, 2:4]  # rows 1-5, cols 2-4
 ```
 
-#### 2.1.4 `$` Operator
+#### 1.1.4 `$` Operator
 
 Used to access named components in a data frame or list:
 
@@ -97,7 +58,7 @@ iris$Sepal.Length
 iris$Species
 ```
 
-#### 2.1.5 Object Inspection Functions
+#### 1.1.5 Object Inspection Functions
 
 | Function | Purpose | Notes |
 | --- | --- | --- |
@@ -114,9 +75,9 @@ summary(iris)
 
 ---
 
-### 2.2 Statistical Functions — ==Core==
+### 1.2 Statistical Functions — Core
 
-#### 2.2.1 Summary Statistics
+#### 1.2.1 Summary Statistics
 
 | Function | Meaning |
 | --- | --- |
@@ -134,7 +95,7 @@ mean(iris$Sepal.Length)
 quantile(iris$Sepal.Length, prob=0.25)  # Q1
 ```
 
-#### 2.2.2 `tapply()` — ==Grouped Computation==
+#### 1.2.2 `tapply()` — Grouped Computation
 
 `tapply(X, INDEX, FUN)` applies a function `FUN` to `X` within each group defined by `INDEX`.
 
@@ -147,9 +108,7 @@ tapply(iris$Sepal.Length, INDEX=iris$Species, FUN=quantile, prob=0.25)
 > [!tip] Intuition
 > `tapply` is a classic `split-apply-combine` tool.
 
-#### 2.2.3 Statistical Tests
-
-[[待修改 - Statistical Tests（统计检验）|Statistical Tests]]
+#### 1.2.3 Statistical Tests
 
 | Function | Test |
 | --- | --- |
@@ -183,7 +142,7 @@ t.test(before, after, paired = TRUE)   # paired test
 
 ---
 
-### 2.3 Reading Data
+### 1.3 Reading Data
 
 ==`header=TRUE` means the first row contains column names.==
 
@@ -215,9 +174,9 @@ print(mean(iris$Sepal.Length))
 
 ---
 
-### 2.4 Graphics — ==Weekly Focus==
+### 1.4 Graphics
 
-#### 2.4.1 Basic Plot Functions
+#### 1.4.1 Basic Plot Functions
 
 | Function | Plot Type | Typical Use |
 | --- | --- | --- |
@@ -228,7 +187,7 @@ print(mean(iris$Sepal.Length))
 | `barplot()` | Bar chart | Frequencies for categories |
 | `density()` | Density curve | Smoothed distribution estimate |
 
-#### 2.4.2 Plot Customization — ==Must Know==
+#### 1.4.2 Plot Customization
 
 ```r
 plot(x, y,
@@ -246,7 +205,7 @@ plot(x, y,
 
 Common `pch` values: 0 square, 1 circle, 2 triangle, 15 filled square, 16 filled circle, 17 filled triangle.
 
-#### 2.4.3 Boxplot with Formula Syntax
+#### 1.4.3 Boxplot with Formula Syntax
 
 ```r
 boxplot(Sepal.Length ~ Species, data=iris,
@@ -259,8 +218,8 @@ boxplot(Sepal.Length ~ Species, data=iris,
 > [!note] Formula syntax
 > `y ~ x` means “y as a function of x” and is standard in R for model/group relationships.
 
-#### 2.4.4 Multiple Groups in One Plot
-
+#### 1.4.4 Multiple Groups in One Plot
+example
 ```r
 plot.colours <- hcl.colors(3, "Dark 3")
 
@@ -281,9 +240,7 @@ box(lwd=2)
 > [!tip] Why `(15:17)[iris$Species]` works
 > `iris$Species` is a factor internally coded as 1/2/3, used to index `c(15,16,17)`.
 
-#### 2.4.5 `ggplot2` Faceting
-
-[[ggplot2 使用指南|ggplot2 Guide]]
+#### 1.4.5 `ggplot2` Faceting
 
 ```r
 library(ggplot2)
@@ -297,7 +254,7 @@ ggplot(data=iris, mapping=aes(x=Petal.Length, y=Sepal.Length)) +
 
 `facet_wrap(~ Species)` creates separate panels by species with comparable scales.
 
-#### 2.4.6 Saving Graphics
+#### 1.4.6 Saving Graphics
 
 ```r
 # Copy current plot to PNG
@@ -312,7 +269,7 @@ dev.off()
 > [!warning] Always call `dev.off()`
 > If omitted, output files may be incomplete or corrupted.
 
-#### 2.4.7 Additional Graphics Helpers
+#### 1.4.7 Additional Graphics Helpers
 
 | Function | Use |
 | --- | --- |
@@ -325,8 +282,7 @@ dev.off()
 
 ---
 
-[[Linear Regression的统计知识|Linear Regression Notes]]
-### 2.5 Linear Regression — Galapagos Example
+### 1.5 Linear Regression — Galapagos Example
 
 ```r
 endemics.model <- lm(Endemics ~ Elevation, data=species.data)
@@ -356,9 +312,9 @@ Classical linear model assumptions (about errors):
 
 ---
 
-## 3. Exploratory Data Analysis (EDA)
+## 2. Exploratory Data Analysis (EDA)
 
-### 3.1 Three Main Goals
+### 2.1 Three Main Goals
 
 | # | Goal |
 | --- | --- |
@@ -366,7 +322,7 @@ Classical linear model assumptions (about errors):
 | 2 | Detect outliers or data-quality problems |
 | 3 | Suggest initial assumptions for modeling |
 
-### 3.2 Using Graphics Effectively — ==Key Principles==
+### 2.2 Using Graphics Effectively — ==Key Principles==
 
 > **Key principle**: the message should be clear **at a glance**.
 
@@ -388,72 +344,7 @@ Classical linear model assumptions (about errors):
 
 ---
 
-## 4. Workshop Scripts Explained
-
-### 4.1 Galapagos Script
-
-**Context**: biodiversity data from the Galapagos Islands (species counts, endemic species, area, elevation, etc.).
-
-```r
-sink("Galapagos_Results.txt")
-
-species.data <- read.table("galapagos.dat", header=TRUE)
-
-str(species.data)
-summary(species.data)
-plot(species.data)
-
-big.island <- (species.data$Area > 3000)
-species.data[big.island, ]
-
-endemics.model <- lm(Endemics ~ Elevation, data=species.data)
-abline(endemics.model, col="red", lty=2, lwd=2)
-
-par(mfrow=c(2,2))
-plot(endemics.model)
-
-sink()
-par(mfrow=c(1,1))
-```
-
-### 4.2 Iris Script
-
-**Context**: Fisher-Anderson iris dataset (3 species × 50 samples each).
-
-| Variable | Meaning |
-| --- | --- |
-| `Sepal.Length` | Sepal length (cm) |
-| `Sepal.Width` | Sepal width (cm) |
-| `Petal.Length` | Petal length (cm) |
-| `Petal.Width` | Petal width (cm) |
-| `Species` | setosa, versicolor, virginica |
-
-```r
-library(ggplot2); library(rgl)
-
-data(iris)
-str(iris)
-summary(iris)
-
-tapply(iris$Sepal.Length, INDEX=iris$Species, FUN=mean)
-tapply(iris$Sepal.Length, INDEX=iris$Species, FUN=var)
-tapply(iris$Sepal.Length, INDEX=iris$Species, FUN=median)
-
-boxplot(Sepal.Length ~ Species, data=iris, col="salmon")
-
-var.test(...)
-t.test(...)
-
-ggplot(...) + geom_point() + facet_wrap(~ Species)
-
-plot(..., col=plot.colours[iris$Species], pch=(15:17)[iris$Species])
-
-rgl::plot3d(...)
-```
-
----
-
-## 5. R Help System
+## 3. R Help System
 
 | Command | Purpose |
 | --- | --- |
@@ -465,7 +356,7 @@ rgl::plot3d(...)
 
 ---
 
-## 6. Quick Reference
+## 4. Quick Reference
 
 ### Core Functions
 
@@ -493,20 +384,9 @@ df[, "colname"]
 
 ---
 
-## 7. Week 1 To-Do
-
-- [ ] Run `Workshop1_Galapagos.r` and understand each line.
-- [ ] Run `Workshop1_Iris.r` (install `ggplot2` and `rgl` first).
-- [ ] Use `?` to read help pages for unfamiliar functions.
-- [ ] Complete Moodle quizzes.
-- [ ] Be able to write a full workflow independently: import → explore → visualize → test.
-
----
-
-> [!summary] Week 1 Key Takeaways
-> 1. The course uses **R (65%)** and **SAS (35%)**, with emphasis on command-line programming.  
-> 2. Core R operations: data frames, `$`, `[]`, and grouped computation via `tapply()`.  
-> 3. Standard testing flow: `var.test()` first, then `t.test()`.  
-> 4. EDA goals + graphics principles (Labelling, Scaling, Colour/Symbol).  
-> 5. ==Never use colour alone to encode categories.==
+> Key Takeaways
+> 1. Core R operations: data frames, `$`, `[]`, and grouped computation via `tapply()`.  
+> 2. Standard testing flow: `var.test()` first, then `t.test() # var.equal = TRUE or FALSE`.  
+> 3. EDA goals + graphics principles (Labelling, Scaling, Colour/Symbol).  
+> 4. Never use colour alone to encode categories.
 
